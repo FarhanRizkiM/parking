@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking App</title>
+</head>
+<body>
+    <h1>Parking App</h1>
+
+    <h2>Enter Parking</h2>
+    <button onclick="enterParking()">Enter Parking</button>
+    <p id="enterResult"></p>
+
+    <h2>Generate QR Code</h2>
+    <button onclick="generateQR()">Generate QR Code</button>
+    <p id="qrResult"></p>
+
+    <script>
+        async function enterParking() {
+            try {
+                const response = await fetch('http://localhost:8080/enter', {
+                    method: 'POST'
+                });
+                const result = await response.text();
+                document.getElementById('enterResult').innerText = result;
+            } catch (error) {
+                console.error('Error entering parking:', error);
+            }
+        }
+
+        async function generateQR() {
+            try {
+                const response = await fetch('http://localhost:8080/generate-qr');
+                const result = await response.text();
+                document.getElementById('qrResult').innerText = result;
+            } catch (error) {
+                console.error('Error generating QR code:', error);
+            }
+        }
+    </script>
+</body>
+</html>
